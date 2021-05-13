@@ -2,9 +2,9 @@ import React from "react";
 import { ReactComponent as ImageSVG } from "./image.svg";
 
 const ImageHolder = (props) => {
-    if (props.uploadedURL) {
+    if (props.uploadedSrc) {
         var imageComponent = (
-            <img className="uploaded-img" src={props.uploadedURL} alt="" />
+            <img className="uploaded-img" src={props.uploadedSrc} alt="" />
         );
     } else {
         imageComponent = (

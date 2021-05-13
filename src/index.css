@@ -2,8 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 0.3s all ease;
 }
-body{
+body {
     font-family: Poppins, sans-serif;
     display: grid;
     place-items: center;
@@ -11,8 +12,8 @@ body{
     height: 100vh;
 }
 
-#root{
-    padding: 3rem 2rem;
+#root {
+    padding:3rem 2rem 2rem 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     width: 30rem;
@@ -21,56 +22,92 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
 }
 
-.Description{
+.Description {
     text-align: center;
     height: 5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-p{
-    font-size: .8rem;
+p {
+    font-size: 0.8rem;
     color: grey;
 }
-.image-holder{
+.image-holder {
     margin: 2rem 0;
     border: 2px dashed #97bef4;
     border-radius: 10px;
     width: 400px;
     height: 300px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     overflow: hidden;
 }
 
-.image-svg{
+.image-svg {
     height: 50%;
     max-height: 200px;
 }
 
-.file-btn{
-    padding: .7rem 1.5rem;
-    border-radius: 10px;
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: red; */
+    height: auto;
+}
+
+button{
+     font-family: Poppins, sans-serif;
+}
+
+.delete-btn, .submit-btn{
+    height: 2.5rem;
+    width: 10rem;
+    margin: .5rem 0;
+    font-weight: 800;
+    cursor: pointer;
     border: none;
     outline: none;
-    background-color: #2f80ed;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #eb1b60;
+}
+.delete-btn:hover{
+    background-color: #e65887;
+}
+
+.submit-btn {
+    background-color: #11c287;
+}
+.submit-btn:hover {
+    background-color: #3ac999;
+}
+
+.file-btn {
+    height: 2.5rem;
+    width: 10rem;
+    border: none;
+    outline: none;
+    background-color: #1b75eb;
     color: white;
     font-weight: 600;
     margin-top: 1rem;
     cursor: pointer;
-    transition: .3s all ease ;
-    
+    transition: 0.2s all ease;
 }
-.file-btn:hover{
-    background-color: #458dec;
+.file-btn:hover {
+    background-color: #3b87eb;
 }
 
-.uploaded-img{
+.uploaded-img {
     width: auto;
     height: 100%;
 }
