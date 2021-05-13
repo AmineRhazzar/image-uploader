@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 const FormComp = (props) => {
+    const uploadPath = "https://localhost:5000/upload";
+
     const [isFileUploaded, setIsFileUploaded] = useState(false);
 
     const handleFormSubmit = (e) => {
@@ -53,7 +55,7 @@ const FormComp = (props) => {
     }
 
     return (
-        <form>
+        <form action={uploadPath} method="POST" encType="multipart/form-data">
             {placeholder}
         </form>
     );
