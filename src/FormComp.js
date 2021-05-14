@@ -5,9 +5,16 @@ const FormComp = (props) => {
     const uploadPath = "http://localhost:5000/upload";
 
     const [isFileUploaded, setIsFileUploaded] = useState(false);
+    const [file, setFile] = useState();
 
     const handleFormSubmit = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
+        const formData = new FormData()
+        formData.append('image', file);
+        sendFile(formData, uploadPath).then((pathToFile) => {
+            props.getUploadedURL(pathToFile);
+        });
+
     };
 
     const deleteUploaded = () => {
@@ -20,6 +27,7 @@ const FormComp = (props) => {
         e.preventDefault();
         const fileURL = URL.createObjectURL(e.target.files[0]);
         setIsFileUploaded(true);
+        setFile(e.target.files[0]);
         props.getImageURL(fileURL);
     }
 
@@ -35,6 +43,7 @@ const FormComp = (props) => {
                 <button
                     type="submit"
                     className="submit-btn"
+                    onClick={handleFormSubmit}
                 >
                     Upload
                 </button>

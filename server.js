@@ -16,7 +16,8 @@ const fileStorageEngine = multer.diskStorage({
         cb(null, "./uploads");
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
+        newFileName = Date.now() + "-" + file.originalname;
+        cb(null, newFileName);
     },
 });
 
@@ -29,11 +30,12 @@ app.get('/', (req, res) => {
 
 
 app.post("/upload", upload.single("image"), (req, res) => {
-    res.send(req.body);
+    var pathToFile = req.file.path;
+    console.log(pathToFile);
+    res.json({"pathToFile" : pathToFile}); 
 });
 
 
 
-app.listen(PORT, () => {
-    console.log("Listening at " + PORT);
-});
+app.listen(PORT);
+ 

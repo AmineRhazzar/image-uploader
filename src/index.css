@@ -111,3 +111,40 @@ button{
     width: auto;
     height: 100%;
 }
+
+.uploaded{
+    display: flex;
+    width: 80%;
+    height: 2.5rem;
+}
+
+.uploaded-url{
+    font-family: inherit;
+    width: 100%;
+    padding: .25rem;
+    height: 2.5rem;
+}
+
+.copy{
+    background-color: #11c287;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.copy:hover{
+    background-color: #3ac999;
+}
+
+.fas{
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;   
+}
+

@@ -1,9 +1,10 @@
-const sendFile = (filePath, uploadPath) => {
-    fetch(uploadPath, {
+const sendFile = (formData, uploadPath) => {
+    return fetch(uploadPath, {
         method: "POST",
-        body: filePath
+        body: formData
     })
-        .then((res) => console.log(res))
+        .then((res) => res.json())
+        .then(success => success.pathToFile)
         .catch(
             (error) => console.log(error)
         );
