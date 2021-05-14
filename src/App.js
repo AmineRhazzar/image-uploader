@@ -12,7 +12,6 @@ const App = (props) => {
     const [uploadedURL, setUploadedURL] = useState(""); //state where we store the url to the dile uploaded in the server.
     const [isCopied, setIsCopied] = useState(false); //to load the lottie animation on button click
     const [copyBtnClass, setcopyBtnClass] = useState("copy") //i only need this to toggle the class "copy-focus" for additional styling
-
     useEffect(() => {
         var anim = lottie.loadAnimation({
             container: container.current,
@@ -35,19 +34,23 @@ const App = (props) => {
         setUploadedURL(staticURL);
     };
 
-    const changeIcon = () => {
+    const copyToClipBoard = () => {
+        navigator.clipboard.writeText(uploadedURL);
+
         setcopyBtnClass("copy copy-focus");
         setIsCopied(true);
         setTimeout(()=>{
             setIsCopied(false);
             setcopyBtnClass("copy");
-        }, 2000);
+        }, 3000);
     };
 
     if(!isCopied){
         var icon = <i className="fas fa-clipboard"></i> 
+        var msg = ''
     }else{
         icon = <div className="lottie" ref={container}></div>
+        msg = "Copied";
     }
 
     if (uploadedURL) {
@@ -59,9 +62,10 @@ const App = (props) => {
                     readOnly
                     value={uploadedURL}
                 />
-                <button className={copyBtnClass} onClick={changeIcon}>
+                <button className={copyBtnClass} onClick={copyToClipBoard}>
                     {icon}
                 </button>
+                <div className="msg"><em>{msg}</em></div>
             </div>
         );
     } else {
