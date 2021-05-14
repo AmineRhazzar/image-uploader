@@ -4,7 +4,7 @@ const cors = require('cors');
 
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 app.use(cors({
     "Access-Control-Allow-Origin":"*"
@@ -37,5 +37,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
 
 
 
-app.listen(PORT);
+app.listen(PORT, ()=>{
+    console.log("listening on port " + PORT);
+});
  
