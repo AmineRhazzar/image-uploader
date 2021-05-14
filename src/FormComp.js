@@ -8,12 +8,13 @@ const FormComp = (props) => {
     const [uploadingState, setUploadingState] = useState(false);//to decide whether to show loader or no
     const [isFileUploaded, setIsFileUploaded] = useState(false);//to know when the file is uploaded so we get its path
     const [file, setFile] = useState();//to get the uploaded image locally, and send it in the formData
-
+    const [submitClass, setSubmitClass] = useState("submit-btn"); //changes the class of the submit button for css purposes
+    
     const fileUploader = useRef(null);
     const container = useRef(null);//access the loader container
 
     useEffect(() => {
-        var anim = lottie.loadAnimation({
+        lottie.loadAnimation({
             container: container.current,
             renderer: "svg",
             loop: true,
@@ -25,13 +26,18 @@ const FormComp = (props) => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("image", file);
-        setUploadingState(true);
+        setSubmitClass("submit-btn clicked");
+        setTimeout(()=>{
+            const formData = new FormData();
+            formData.append("image", file);
+    
+            setUploadingState(true);
+    
+            sendFile(formData, uploadPath).then((pathToFile) => {
+                props.getUploadedURL(pathToFile);
+            });
+        }, 300); //300ms = 0.3s is the duration of the animation for the submit btn
 
-        sendFile(formData, uploadPath).then((pathToFile) => {
-            props.getUploadedURL(pathToFile);
-        });
     };
 
     const deleteUploaded = () => {
@@ -76,7 +82,7 @@ const FormComp = (props) => {
                 <>
                     <button
                         type="submit"
-                        className="submit-btn"
+                        className={submitClass}
                         onClick={handleFormSubmit}
                     >
                         Upload

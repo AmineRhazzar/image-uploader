@@ -14,7 +14,7 @@ body {
 
 #root {
     position: relative;
-    padding:3rem 2rem 2rem 2rem;
+    padding: 3rem 2rem 2rem 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     width: 30rem;
@@ -60,7 +60,7 @@ p {
     transition: 0.3s all ease;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -69,8 +69,8 @@ form{
     transition: 0.3s all ease;
 }
 
-.file-uploader{
-    position:absolute;
+.file-uploader {
+    position: absolute;
     top: 0;
     width: 100%;
     height: 80%;
@@ -78,18 +78,19 @@ form{
     transition: 0.3s all ease;
 }
 
-.dragging ~ .image-holder{
+.dragging ~ .image-holder {
     opacity: 0;
 }
 
-button{
-     font-family: Poppins, sans-serif;
+button {
+    font-family: Poppins, sans-serif;
 }
 
-.delete-btn, .submit-btn{
+.delete-btn,
+.submit-btn {
     height: 2.5rem;
     width: 10rem;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
     font-weight: 800;
     cursor: pointer;
     border: none;
@@ -101,15 +102,47 @@ button{
 .delete-btn {
     background-color: #eb1b60;
 }
-.delete-btn:hover{
+.delete-btn:hover {
     background-color: #e65887;
 }
 
 .submit-btn {
     background-color: #11c287;
+    position: relative;
+    overflow: hidden;
 }
 .submit-btn:hover {
     background-color: #3ac999;
+}
+.clicked::after {
+    content: "";
+    background-color: white;
+    width: 50%;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    right: -50%;
+    animation: slide-in 0.3s ease-out forwards;
+}
+@keyframes slide-in {
+    to {
+        right: 0;
+    }
+}
+.clicked::before {
+    content: "";
+    background-color: white;
+    width: 50%;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: -50%;
+    animation: slide-in-2 0.3s ease-out forwards;
+}
+@keyframes slide-in-2 {
+    to {
+        left: 0;
+    }
 }
 
 .file-btn {
@@ -130,9 +163,11 @@ button{
 .loader {
     height: fit-content;
     width: auto;
+    opacity: 0;
+    animation: appear 1s ease forwards;
 }
 
-.loader svg{
+.loader svg {
     margin: -1.5rem 0;
 }
 .uploaded-img {
@@ -140,45 +175,43 @@ button{
     height: 100%;
 }
 
-#cloud{
+#cloud {
     font-size: 7rem;
-    color:#1b75eb;
+    color: #1b75eb;
     opacity: 0;
     animation: appear 1s ease forwards;
 }
 @keyframes appear {
-    to{
+    to {
         opacity: 1;
     }
 }
 
-
-.disappear{
+.disappear {
     opacity: 1;
     animation: disappear 1s ease forwards;
 }
 @keyframes disappear {
-    to{
+    to {
         opacity: 0;
     }
 }
 
-
-.uploaded{
+.uploaded {
     position: relative;
     display: flex;
     width: 80%;
     height: 2.5rem;
 }
 
-.uploaded-url{
+.uploaded-url {
     font-family: inherit;
     width: 100%;
-    padding: .25rem;
+    padding: 0.25rem;
     height: 2.5rem;
 }
 
-.copy{
+.copy {
     background-color: #3ac999;
     border: none;
     outline: none;
@@ -188,33 +221,33 @@ button{
     transform: scale(1);
 }
 
-.copy:hover{
+.copy:hover {
     background-color: #11c287;
 }
 
-.copy-focus{
+.copy-focus {
     transform: scale(1.1);
 }
 
-.fas{
+.fas {
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;   
+    color: white;
 }
 
-.lottie{
+.lottie {
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1.3rem;
     transform: scale(1.1);
 }
 
-.msg{
-    color:rgb(126, 126, 126);
+.msg {
+    color: rgb(126, 126, 126);
     font-weight: 300;
     letter-spacing: -1px;
     position: absolute;
@@ -224,4 +257,3 @@ button{
     justify-content: center;
     align-items: center;
 }
-
