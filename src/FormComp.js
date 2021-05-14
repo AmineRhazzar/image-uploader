@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import sendFile from "./client"
 
 const FormComp = (props) => {
-    const uploadPath = "https://localhost:5000/upload";
+    const uploadPath = "http://localhost:5000/upload";
 
     const [isFileUploaded, setIsFileUploaded] = useState(false);
 
     const handleFormSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
     };
 
     const deleteUploaded = () => {
@@ -34,7 +35,6 @@ const FormComp = (props) => {
                 <button
                     type="submit"
                     className="submit-btn"
-                    onClick={handleFormSubmit}
                 >
                     Upload
                 </button>
@@ -49,7 +49,6 @@ const FormComp = (props) => {
             <>
                 <p>Or</p>
                 <button type="button" className="file-btn" onClick={openFileExplorer}>Choose a file</button>
-                <input id="file-uploader" type="file" name="file" hidden onChange={getFileURL}/>
             </>
         );
     }
@@ -57,6 +56,7 @@ const FormComp = (props) => {
     return (
         <form action={uploadPath} method="POST" encType="multipart/form-data">
             {placeholder}
+            <input id="file-uploader" type="file" name="image" hidden onChange={getFileURL}/> {/*the name attriute here is gonna be used in multer.single(____). see server.js for more.*/}
         </form>
     );
 };
