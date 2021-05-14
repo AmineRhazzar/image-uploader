@@ -36,7 +36,7 @@ const FormComp = (props) => {
             sendFile(formData, uploadPath).then((pathToFile) => {
                 props.getUploadedURL(pathToFile);
             });
-        }, 300); //300ms = 0.3s is the duration of the animation for the submit btn
+        }, 300); //300ms = 0.3s is the duration of the animation for the submit btn; we set a timeout to prevent the component from re-rendering and thus unmounting the submit-btn before the end of the animation 
 
     };
 
@@ -71,7 +71,7 @@ const FormComp = (props) => {
         if (uploadingState) {
             var placeholder = (
                 <>
-                    <div class="loader" ref={container}></div>
+                    <div className="loader" ref={container}></div>
                     <button className="delete-btn" onClick={deleteUploaded}>
                         Delete
                     </button>
@@ -120,7 +120,8 @@ const FormComp = (props) => {
                 onChange={getFileURL}
                 onDragOver={onDragHandler}
                 onDragLeave={onDragEndHandler}
-            />{" "}
+                hidden={uploadingState}  
+            />
             {/*the name attriute here is gonna be used in multer.single(____). see server.js for more.*/}
         </form>
     );

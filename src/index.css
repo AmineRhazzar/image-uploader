@@ -169,6 +169,8 @@ button {
 
 .loader svg {
     margin: -1.5rem 0;
+    max-height: 100px;
+    max-width: 100px;
 }
 .uploaded-img {
     width: auto;
