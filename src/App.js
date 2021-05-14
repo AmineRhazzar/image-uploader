@@ -7,6 +7,7 @@ import lottie from "lottie-web";
 
 const App = (props) => {
     const container = useRef(null);
+    const backendPath = "https://img-upldng.herokuapp.com/";
 
     const [uploadedSrc, setUploadedSrc] = useState(""); //state in where we store the file's temporary local source (blob://); it's empty when nothing is uploaded
     const [uploadedURL, setUploadedURL] = useState(""); //state where we store the url to the file uploaded in the server.
@@ -33,7 +34,7 @@ const App = (props) => {
 
 
     const getUploadedURL = (pathToFile) => {
-        var staticURL = "https://img-upld-mania.herokuapp.com/" + pathToFile;
+        var staticURL = backendPath + pathToFile;
         setUploadedURL(staticURL);
     };
 
@@ -89,6 +90,7 @@ const App = (props) => {
                 getImageURL={getImageURL}
                 getUploadedURL={getUploadedURL}
                 setIsDragged={isDraggedHandler}
+                backendPath={backendPath}
             />
         );
     }
