@@ -3,14 +3,11 @@ import "./index.css";
 import Description from "./Description";
 import ImageHolder from "./ImageHolder";
 import FormComp from "./FormComp";
-import pathToLottie from "./lottie-check.json";
-import bodymovin from "bodymovin";
+
 
 const App = (props) => {
     const [uploadedSrc, setUploadedSrc] = useState(""); //state in where we store the local uploaded file's source (blob://); it's empty when nothing is uploaded
-    const [uploadedURL, setUploadedURL] = useState(""); //state where we store the url to the dile uploaded in the server. 
-    const [isCopied, setIsCopied] = useState(false);
-
+    const [uploadedURL, setUploadedURL] = useState(""); //state where we store the url to the dile uploaded in the server.
 
     //gets called on file upload, allows us to get the uploaded file's url
     const getImageURL = (fileURL) => {
@@ -20,32 +17,31 @@ const App = (props) => {
     const getUploadedURL = (pathToFile) => {
         var staticURL = "http://localhost:5000/" + pathToFile;
         setUploadedURL(staticURL);
-    }
+    };
 
-    const changeIcon = () => {
-        const container = document.getElementById("copy");
-        const animItem = bodymovin.loadAnimation({
-            container : container,
-            renderer: "svg",
-            loop: false,
-            autoplay: false,
-            path: "./lottie-check.json"
-        });
-        animItem.play();
-    }
+    const changeIcon = () => {};
 
-
-
-    if(uploadedURL){
+    if (uploadedURL) {
         var isFileReady = (
             <div className="uploaded">
-                <input className="uploaded-url" type="text" value={uploadedURL} />
-                <button className="copy" id="copy" onClick={changeIcon}><i class="fas fa-clipboard"></i></button>
-                
+                <input
+                    className="uploaded-url"
+                    type="text"
+                    readOnly
+                    value={uploadedURL}
+                />
+                <button className="copy" id="copy" onClick={changeIcon}>
+                    <i className="fas fa-clipboard"></i>
+                </button>
             </div>
         );
-    }else{
-        isFileReady = <FormComp getImageURL={getImageURL} getUploadedURL={getUploadedURL} />
+    } else {
+        isFileReady = (
+            <FormComp
+                getImageURL={getImageURL}
+                getUploadedURL={getUploadedURL}
+            />
+        );
     }
 
     return (
