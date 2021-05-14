@@ -5,9 +5,11 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
+
 app.use(cors({
     "Access-Control-Allow-Origin":"*"
 }))
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
