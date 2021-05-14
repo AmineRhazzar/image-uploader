@@ -13,6 +13,7 @@ body {
 }
 
 #root {
+    position: relative;
     padding:3rem 2rem 2rem 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -60,8 +61,20 @@ form{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* background-color: red; */
     height: auto;
+}
+
+.file-uploader{
+    position:absolute;
+    top: 0;
+    width: 100%;
+    height: 80%;
+    opacity: 0;
+    transition: 0s all ease;
+}
+
+.dragging ~ .image-holder{
+    opacity: 0;
 }
 
 button{
@@ -113,6 +126,30 @@ button{
     width: auto;
     height: 100%;
 }
+
+#cloud{
+    font-size: 7rem;
+    color:#1b75eb;
+    opacity: 0;
+    animation: appear 1s ease forwards;
+}
+@keyframes appear {
+    to{
+        opacity: 1;
+    }
+}
+
+
+.disappear{
+    opacity: 1;
+    animation: disappear 1s ease forwards;
+}
+@keyframes disappear {
+    to{
+        opacity: 0;
+    }
+}
+
 
 .uploaded{
     position: relative;
@@ -175,7 +212,3 @@ button{
     align-items: center;
 }
 
-
-@media (max-width:550px) {
-    
-}

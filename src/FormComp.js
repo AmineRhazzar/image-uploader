@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import sendFile from "./client"
 
 const FormComp = (props) => {
@@ -6,6 +6,7 @@ const FormComp = (props) => {
 
     const [isFileUploaded, setIsFileUploaded] = useState(false);
     const [file, setFile] = useState();
+    const fileUploader = useRef(null);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +21,7 @@ const FormComp = (props) => {
     const deleteUploaded = () => {
         setIsFileUploaded(false);
         props.getImageURL(''); //delete the url to the file uploaded
+        props.setIsDragged(false);
     }
 
     //send the uploaded file's url to the parent component
@@ -33,9 +35,15 @@ const FormComp = (props) => {
 
     //this method allows us to open the file explorer using the custom button and not input type=file
     const openFileExplorer = () => {
-        document.getElementById("file-uploader").click();
+        fileUploader.current.click();
     };
 
+    const onDragHandler = () => {
+        props.setIsDragged(true);
+    }
+    const onDragEndHandler = () => {
+        props.setIsDragged(false);
+    }
     
     if (isFileUploaded) {
         var placeholder = (
@@ -65,7 +73,7 @@ const FormComp = (props) => {
     return (
         <form action={uploadPath} method="POST" encType="multipart/form-data">
             {placeholder}
-            <input id="file-uploader" type="file" name="image" hidden onChange={getFileURL}/> {/*the name attriute here is gonna be used in multer.single(____). see server.js for more.*/}
+            <input className="file-uploader" type="file" name="image" ref={fileUploader} onChange={getFileURL} onDragOver={onDragHandler} onDragLeave={onDragEndHandler}/> {/*the name attriute here is gonna be used in multer.single(____). see server.js for more.*/}
         </form>
     );
 };
