@@ -1,28 +1,44 @@
-import React, { useState, useRef} from "react";
-import sendFile from "./client"
+import React, { useState, useRef, useEffect } from "react";
+import lottie from "lottie-web";
+import sendFile from "./client";
 
 const FormComp = (props) => {
-    const uploadPath = "http://localhost:5000/upload";
+    const uploadPath = "https://img-upld-mania.herokuapp.com/upload"; //path to upload the file
 
-    const [isFileUploaded, setIsFileUploaded] = useState(false);
-    const [file, setFile] = useState();
+    const [uploadingState, setUploadingState] = useState(false);//to decide whether to show loader or no
+    const [isFileUploaded, setIsFileUploaded] = useState(false);//to know when the file is uploaded so we get its path
+    const [file, setFile] = useState();//to get the uploaded image locally, and send it in the formData
+
     const fileUploader = useRef(null);
+    const container = useRef(null);//access the loader container
+
+    useEffect(() => {
+        var anim = lottie.loadAnimation({
+            container: container.current,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            animationData: require("./lottie-loader.json"),
+            name: "lottie-loader",
+        });
+    }, [uploadingState]);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData()
-        formData.append('image', file);
+        const formData = new FormData();
+        formData.append("image", file);
+        setUploadingState(true);
+
         sendFile(formData, uploadPath).then((pathToFile) => {
             props.getUploadedURL(pathToFile);
         });
-
     };
 
     const deleteUploaded = () => {
         setIsFileUploaded(false);
-        props.getImageURL(''); //delete the url to the file uploaded
+        props.getImageURL(""); //delete the url to the file uploaded
         props.setIsDragged(false);
-    }
+    };
 
     //send the uploaded file's url to the parent component
     const getFileURL = (e) => {
@@ -31,7 +47,7 @@ const FormComp = (props) => {
         setIsFileUploaded(true);
         setFile(e.target.files[0]);
         props.getImageURL(fileURL);
-    }
+    };
 
     //this method allows us to open the file explorer using the custom button and not input type=file
     const openFileExplorer = () => {
@@ -40,32 +56,49 @@ const FormComp = (props) => {
 
     const onDragHandler = () => {
         props.setIsDragged(true);
-    }
+    };
     const onDragEndHandler = () => {
         props.setIsDragged(false);
-    }
-    
-    if (isFileUploaded) {
-        var placeholder = (
-            <>
-                <button
-                    type="submit"
-                    className="submit-btn"
-                    onClick={handleFormSubmit}
-                >
-                    Upload
-                </button>
+    };
 
-                <button className="delete-btn" onClick={deleteUploaded}>
-                    Delete
-                </button>
-            </>
-        );
+    if (isFileUploaded) {
+        if (uploadingState) {
+            var placeholder = (
+                <>
+                    <div class="loader" ref={container}></div>
+                    <button className="delete-btn" onClick={deleteUploaded}>
+                        Delete
+                    </button>
+                </>
+            );
+        } else {
+            placeholder = (
+                <>
+                    <button
+                        type="submit"
+                        className="submit-btn"
+                        onClick={handleFormSubmit}
+                    >
+                        Upload
+                    </button>
+
+                    <button className="delete-btn" onClick={deleteUploaded}>
+                        Delete
+                    </button>
+                </>
+            );
+        }
     } else {
         placeholder = (
             <>
                 <p>Or</p>
-                <button type="button" className="file-btn" onClick={openFileExplorer}>Choose a file</button>
+                <button
+                    type="button"
+                    className="file-btn"
+                    onClick={openFileExplorer}
+                >
+                    Choose a file
+                </button>
             </>
         );
     }
@@ -73,7 +106,16 @@ const FormComp = (props) => {
     return (
         <form action={uploadPath} method="POST" encType="multipart/form-data">
             {placeholder}
-            <input className="file-uploader" type="file" name="image" ref={fileUploader} onChange={getFileURL} onDragOver={onDragHandler} onDragLeave={onDragEndHandler}/> {/*the name attriute here is gonna be used in multer.single(____). see server.js for more.*/}
+            <input
+                className="file-uploader"
+                type="file"
+                name="image"
+                ref={fileUploader}
+                onChange={getFileURL}
+                onDragOver={onDragHandler}
+                onDragLeave={onDragEndHandler}
+            />{" "}
+            {/*the name attriute here is gonna be used in multer.single(____). see server.js for more.*/}
         </form>
     );
 };

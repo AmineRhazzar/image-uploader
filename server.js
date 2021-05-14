@@ -13,7 +13,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./uploads");
+        cb(null, __dirname + "/uploads");
     },
     filename: (req, file, cb) => {
         newFileName = Date.now() + "-" + file.originalname;

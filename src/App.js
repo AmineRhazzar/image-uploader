@@ -23,7 +23,7 @@ const App = (props) => {
             animationData: require("./lottie-check.json"),
             name: "lottie-check"
         })
-        anim.setSpeed(3);
+        anim.setSpeed(1.5);
     }, [isCopied]);
 
     //gets called on file upload, allows us to get the uploaded file's url
@@ -33,7 +33,7 @@ const App = (props) => {
 
 
     const getUploadedURL = (pathToFile) => {
-        var staticURL = "http://localhost:5000/" + pathToFile;
+        var staticURL = "https://img-upld-mania.herokuapp.com/" + pathToFile;
         setUploadedURL(staticURL);
     };
 

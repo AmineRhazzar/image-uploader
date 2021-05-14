@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: 0.3s all ease;
 }
+
 body {
     font-family: Poppins, sans-serif;
     display: grid;
@@ -24,6 +24,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    transition: 0.3s all ease;
 }
 
 .Description {
@@ -32,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: 0.3s all ease;
 }
 p {
     font-size: 0.8rem;
@@ -49,11 +51,13 @@ p {
     justify-content: space-evenly;
     align-items: center;
     overflow: hidden;
+    transition: 0.3s all ease;
 }
 
 .image-svg {
     height: 50%;
     max-height: 200px;
+    transition: 0.3s all ease;
 }
 
 form{
@@ -62,6 +66,7 @@ form{
     justify-content: space-between;
     align-items: center;
     height: auto;
+    transition: 0.3s all ease;
 }
 
 .file-uploader{
@@ -70,7 +75,7 @@ form{
     width: 100%;
     height: 80%;
     opacity: 0;
-    transition: 0s all ease;
+    transition: 0.3s all ease;
 }
 
 .dragging ~ .image-holder{
@@ -90,6 +95,7 @@ button{
     border: none;
     outline: none;
     color: white;
+    transition: 0.3s all ease;
 }
 
 .delete-btn {
@@ -121,7 +127,14 @@ button{
 .file-btn:hover {
     background-color: #3b87eb;
 }
+.loader {
+    height: fit-content;
+    width: auto;
+}
 
+.loader svg{
+    margin: -1.5rem 0;
+}
 .uploaded-img {
     width: auto;
     height: 100%;
