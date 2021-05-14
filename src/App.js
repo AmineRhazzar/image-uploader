@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
 import Description from "./Description";
 import ImageHolder from "./ImageHolder";
 import FormComp from "./FormComp";
-
+import lottie from "lottie-web";
 
 const App = (props) => {
+    const container = useRef(null);
+
     const [uploadedSrc, setUploadedSrc] = useState(""); //state in where we store the local uploaded file's source (blob://); it's empty when nothing is uploaded
     const [uploadedURL, setUploadedURL] = useState(""); //state where we store the url to the dile uploaded in the server.
+    const [isCopied, setIsCopied] = useState(false); //to load the lottie animation on button click
+    const [copyBtnClass, setcopyBtnClass] = useState("copy") //i only need this to toggle the class "copy-focus" for additional styling
+
+    useEffect(() => {
+        var anim = lottie.loadAnimation({
+            container: container.current,
+            renderer: "svg",
+            loop: false,
+            autoplay: true,
+            animationData: require("./lottie-check.json"),
+            name: "lottie-check"
+        })
+        anim.setSpeed(3);
+    }, [isCopied]);
 
     //gets called on file upload, allows us to get the uploaded file's url
     const getImageURL = (fileURL) => {
@@ -19,7 +35,20 @@ const App = (props) => {
         setUploadedURL(staticURL);
     };
 
-    const changeIcon = () => {};
+    const changeIcon = () => {
+        setcopyBtnClass("copy copy-focus");
+        setIsCopied(true);
+        setTimeout(()=>{
+            setIsCopied(false);
+            setcopyBtnClass("copy");
+        }, 2000);
+    };
+
+    if(!isCopied){
+        var icon = <i className="fas fa-clipboard"></i> 
+    }else{
+        icon = <div className="lottie" ref={container}></div>
+    }
 
     if (uploadedURL) {
         var isFileReady = (
@@ -30,8 +59,8 @@ const App = (props) => {
                     readOnly
                     value={uploadedURL}
                 />
-                <button className="copy" id="copy" onClick={changeIcon}>
-                    <i className="fas fa-clipboard"></i>
+                <button className={copyBtnClass} onClick={changeIcon}>
+                    {icon}
                 </button>
             </div>
         );

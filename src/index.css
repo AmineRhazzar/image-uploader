@@ -126,16 +126,21 @@ button{
 }
 
 .copy{
-    background-color: #11c287;
+    background-color: #3ac999;
     border: none;
     outline: none;
     cursor: pointer;
     width: 2.5rem;
     height: 2.5rem;
+    transform: scale(1);
 }
 
 .copy:hover{
-    background-color: #3ac999;
+    background-color: #11c287;
+}
+
+.copy-focus{
+    transform: scale(1.1);
 }
 
 .fas{
@@ -148,3 +153,10 @@ button{
     color: white;   
 }
 
+.lottie{
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+    transform: scale(1.1);
+
+}
