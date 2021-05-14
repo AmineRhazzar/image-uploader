@@ -3,7 +3,7 @@ import lottie from "lottie-web";
 import sendFile from "./client";
 
 const FormComp = (props) => {
-    const uploadPath = props.backendPath; //path to upload the file
+    const uploadPath = props.backendPath + "upload"; //path to upload the file
 
     const [uploadingState, setUploadingState] = useState(false);//to decide whether to show loader or no
     const [isFileUploaded, setIsFileUploaded] = useState(false);//to know when the file is uploaded so we get its path
